@@ -6,7 +6,7 @@ ENV GOSU_VERSION=1.10
 ENV ELASTICSEARCH_VERSION=5.6.16
 ENV ELASTICSEARCH_DEB_VERSION=5.6.16
 
-RUN set -x  && \
+RUN set -x && \
       apt-get update && \
       apt-get install -y --no-install-recommends \
         apt-transport-https \
@@ -16,7 +16,7 @@ RUN set -x  && \
         gosu \
         unzip   \
         xz-utils \
-      && \
+     && \
       echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/elasticsearch.list && \
       rm -rf /var/lib/apt/lists/*
 
