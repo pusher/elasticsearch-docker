@@ -1,5 +1,3 @@
-# SHELL:=/bin/bash
-
 .DEFAULT_GOAL:=help
 
 ## Print this help
@@ -17,21 +15,25 @@ VERSION  := 5.6
 TAG      := ${VERSION}-${GIT_DESC}
 
 # Image URL to use all building/pushing image targets
-IMG ?= quay.io/pusher/elasticsearch
-
+IMG ?= quay.io/pusher/elasticsearch-docker
 
 ## build docker image(s)
 docker-build:
+	@echo -e "\033[36mBuilding ==> $(IMG):$(VERSION)\033[0m"
 	docker build --build-arg VERSION=${VERSION} . -f Dockerfile.${VERSION} -t ${IMG}:${TAG}
-	@echo -e "\033[36mBuilt $(IMG):$(VERSION)\033[0m"
 
 TAGS ?= latest
 ## docker tag
 docker-tag:
-	@IFS=","; tags=${TAGS}; for tag in $${tags}; do docker tag ${IMG}:${TAG} ${IMG}:$${tag}; echo -e "\033[36mTagged $(IMG):$(TAG) as $${tag}\033[0m"; done
-
+	@for tag in $(TAGS); do \
+		echo -e "\033[36mTagging ==> $(IMG):$(TAG) as $${tag}\033[0m"; \
+		docker tag ${IMG}:${TAG} ${IMG}:$${tag} || exit 11; \
+	done
 
 ## Push the docker image
-PUSH_TAGS ?= ${TAG},latest
+PUSH_TAGS ?= ${TAG} latest
 docker-push:
-	@IFS=","; tags=${PUSH_TAGS}; for tag in $${tags}; do docker push ${IMG}:$${tag}; echo -e "\033[36mPushed $(IMG):$${tag}\033[0m"; done
+	@for tag in $(PUSH_TAGS); do \
+		echo -e "\033[36mPushing ==> $(IMG):$${tag}\033[0m"; \
+		docker push ${IMG}:$${tag}; \
+	done
