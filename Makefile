@@ -17,7 +17,7 @@ VERSION  := 5.6
 TAG      := ${VERSION}-${GIT_DESC}
 
 # Image URL to use all building/pushing image targets
-IMG ?= quay.io/pusher/elasticsearch
+IMG ?= quay.io/pusher/elasticsearch-docker
 
 
 ## build docker image(s)
