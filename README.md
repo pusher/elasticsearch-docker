@@ -1,5 +1,7 @@
 # elasticsearch
 
+[![Build Status](https://prow.pusher.com/badge.svg?jobs=post-elasticsearch-docker-build-docker)](https://prow.pusher.com/?repo=pusher%2Felasticsearch-docker)
+
 ## What is this
 
 Elasticsearch docker images with a more modern JVM
