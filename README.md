@@ -25,8 +25,6 @@ To see available *make* commands simply run `make`.. of note is:
 Most of the steps in the Dockerfile were reverse engineered from the upstream elasticsearch image. it was over 2 years old at the time of writing and I couldn't find a Dockerfile so I used `dive` and `docker inspect` to re-create it.
 
 
-
-
 # TODO:
 - dumb-init / tini
 - maybe bake in the exporter (optional)
